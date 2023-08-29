@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ButtonStyled, ListItem } from './ContactList.styled';
 
-const ContactList = ({ filteredContacts, onDelete }) => {
+function ContactList({ filteredContacts, onDelete }) {
   return (
     <ul>
-      {filteredContacts.map(contact => {
+      {filteredContacts().map(contact => {
         return (
           <ListItem key={contact.id}>
             {contact.name}: {contact.number}{' '}
@@ -21,10 +21,10 @@ const ContactList = ({ filteredContacts, onDelete }) => {
       })}
     </ul>
   );
-};
+}
 
 ContactList.propTypes = {
-  filteredContacts: PropTypes.array.isRequired,
+  filteredContacts: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 

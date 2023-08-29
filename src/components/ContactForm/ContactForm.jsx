@@ -61,3 +61,32 @@ class ContactForm extends Component {
 ContactForm.propTypes = { onSubmit: PropTypes.func.isRequired };
 
 export default ContactForm;
+
+// function ContactForm(onSubmit) {
+//   const onHandleSubmit = (name, number) => {
+//     onSubmit(name, number);
+//     reset();
+//   };
+
+//   return (
+//     <Formik
+//       initialValues={{ name: '', number: '' }}
+//       validationSchema={schema}
+//       onSubmit={this.onHandleSubmit}
+//     >
+//       <FormStyled>
+//         <LabelStyled htmlFor="name">
+//           Name
+//           <InputStyled type="text" name="name" id="name" />
+//           <ErrorMessageStyled name="name" component="div" />
+//         </LabelStyled>
+//         <LabelStyled htmlFor="number">
+//           Number
+//           <InputStyled type="tel" name="number" />
+//           <ErrorMessageStyled name="number" component="div" />
+//         </LabelStyled>
+//         <ButtonStyled type="submit">Add contact</ButtonStyled>
+//       </FormStyled>
+//     </Formik>
+//   );
+// }
