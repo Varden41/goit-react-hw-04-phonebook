@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Formik } from 'formik';
 import {
   FormStyled,
@@ -10,7 +11,7 @@ import {
   ButtonStyled,
 } from './ContactForm.styled';
 
-const schema = yup.object({
+let schema = yup.object({
   name: yup
     .string()
     .required('Please enter a name')
@@ -27,66 +28,42 @@ const schema = yup.object({
     ),
 });
 
-class ContactForm extends Component {
-  onHandleSubmit = (values, { resetForm }) => {
-    this.props.onSubmit(values.name, values.number);
-    resetForm();
+function ContactForm({ onSubmit }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    defaultValues: { name: '', number: '' },
+    resolver: yupResolver(schema),
+  });
+
+  const onHandleSubmit = ({ name, number }) => {
+    onSubmit(name, number);
+    reset();
   };
 
-  render() {
-    return (
-      <Formik
-        initialValues={{ name: '', number: '' }}
-        validationSchema={schema}
-        onSubmit={this.onHandleSubmit}
-      >
-        <FormStyled>
-          <LabelStyled htmlFor="name">
-            Name
-            <InputStyled type="text" name="name" id="name" />
-            <ErrorMessageStyled name="name" component="div" />
-          </LabelStyled>
-          <LabelStyled htmlFor="number">
-            Number
-            <InputStyled type="tel" name="number" />
-            <ErrorMessageStyled name="number" component="div" />
-          </LabelStyled>
-          <ButtonStyled type="submit">Add contact</ButtonStyled>
-        </FormStyled>
-      </Formik>
-    );
-  }
+  return (
+    <Formik validationSchema={schema}>
+      <FormStyled onSubmit={handleSubmit(onHandleSubmit)}>
+        <LabelStyled htmlFor="name">
+          Name
+          <InputStyled {...register('name')} />
+          <p>{errors.firstName?.message}</p>
+          <ErrorMessageStyled>{errors.name?.message}</ErrorMessageStyled>
+        </LabelStyled>
+        <LabelStyled htmlFor="number">
+          Number
+          <InputStyled {...register('number')} />
+          <ErrorMessageStyled>{errors.number?.message}</ErrorMessageStyled>
+        </LabelStyled>
+        <ButtonStyled type="submit">Add contact</ButtonStyled>
+      </FormStyled>
+    </Formik>
+  );
 }
 
 ContactForm.propTypes = { onSubmit: PropTypes.func.isRequired };
 
 export default ContactForm;
-
-// function ContactForm(onSubmit) {
-//   const onHandleSubmit = (name, number) => {
-//     onSubmit(name, number);
-//     reset();
-//   };
-
-//   return (
-//     <Formik
-//       initialValues={{ name: '', number: '' }}
-//       validationSchema={schema}
-//       onSubmit={this.onHandleSubmit}
-//     >
-//       <FormStyled>
-//         <LabelStyled htmlFor="name">
-//           Name
-//           <InputStyled type="text" name="name" id="name" />
-//           <ErrorMessageStyled name="name" component="div" />
-//         </LabelStyled>
-//         <LabelStyled htmlFor="number">
-//           Number
-//           <InputStyled type="tel" name="number" />
-//           <ErrorMessageStyled name="number" component="div" />
-//         </LabelStyled>
-//         <ButtonStyled type="submit">Add contact</ButtonStyled>
-//       </FormStyled>
-//     </Formik>
-//   );
-// }

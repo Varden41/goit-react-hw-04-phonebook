@@ -6,13 +6,13 @@ export const FormStyled = styled(Form)`
   border: 1px solid black;
   width: 400px;
 `;
-export const InputStyled = styled(Field)`
+export const InputStyled = styled.input`
   padding: 10px;
   width: 70%;
   margin-inline: auto;
   margin-bottom: 10px;
 `;
-export const ErrorMessageStyled = styled(ErrorMessage)`
+export const ErrorMessageStyled = styled.p`
   text-align: center;
 `;
 export const LabelStyled = styled.label`
