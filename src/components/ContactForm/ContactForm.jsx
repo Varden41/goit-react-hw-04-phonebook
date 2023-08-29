@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Formik } from 'formik';
+
 import {
   FormStyled,
   InputStyled,
@@ -45,22 +45,20 @@ function ContactForm({ onSubmit }) {
   };
 
   return (
-    <Formik validationSchema={schema}>
-      <FormStyled onSubmit={handleSubmit(onHandleSubmit)}>
-        <LabelStyled htmlFor="name">
-          Name
-          <InputStyled {...register('name')} />
-          <p>{errors.firstName?.message}</p>
-          <ErrorMessageStyled>{errors.name?.message}</ErrorMessageStyled>
-        </LabelStyled>
-        <LabelStyled htmlFor="number">
-          Number
-          <InputStyled {...register('number')} />
-          <ErrorMessageStyled>{errors.number?.message}</ErrorMessageStyled>
-        </LabelStyled>
-        <ButtonStyled type="submit">Add contact</ButtonStyled>
-      </FormStyled>
-    </Formik>
+    <FormStyled onSubmit={handleSubmit(onHandleSubmit)}>
+      <LabelStyled htmlFor="name">
+        Name
+        <InputStyled {...register('name')} />
+        <p>{errors.firstName?.message}</p>
+        <ErrorMessageStyled>{errors.name?.message}</ErrorMessageStyled>
+      </LabelStyled>
+      <LabelStyled htmlFor="number">
+        Number
+        <InputStyled {...register('number')} />
+        <ErrorMessageStyled>{errors.number?.message}</ErrorMessageStyled>
+      </LabelStyled>
+      <ButtonStyled type="submit">Add contact</ButtonStyled>
+    </FormStyled>
   );
 }
 

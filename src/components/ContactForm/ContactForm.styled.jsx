@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { Form, Field, ErrorMessage } from 'formik';
-export const FormStyled = styled(Form)`
+
+export const FormStyled = styled.form`
   display: flex;
   flex-direction: column;
   border: 1px solid black;
